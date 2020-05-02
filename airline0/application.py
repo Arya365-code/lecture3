@@ -21,4 +21,9 @@ def book():
     #Get form information.
     name = request.form.get("name")
     try:
-        
+        flight_id = int(request.form.get("flight_id"))
+    except ValueError:
+        return render_template("error.html", message="Invalid flight number.")
+
+    #Make sure the flight exists.
+    if db.execute("SELECT * FROM flights WHERE id = :id", {"id": flight_id}).rowcount()
